@@ -105,6 +105,22 @@ This will start a web server, and you can access the chat interface by opening y
 
 4.  The bot will generate a response based on the text corpus.
 
+## Usage with Docker
+
+You can also run the application using Docker.
+
+1.  Build the Docker image:
+    ```bash
+    docker build -t markov-chain-chatbot .
+    ```
+
+2.  Run the Docker container:
+    ```bash
+    docker run -p 8080:8080 markov-chain-chatbot
+    ```
+
+    This will start the application, and you can access it at `http://localhost:8080`.
+
 ## Configuration
 
 You can create a `.env` file in the root of the project to configure the following environment variables. You can use the `.env.example` file as a template.
@@ -114,6 +130,18 @@ You can create a `.env` file in the root of the project to configure the followi
 *   `INPUT_FILENAME`: A comma-separated list of filenames from the `static` directory to be used as the text corpus (e.g., `commedia.txt,brunori.txt`).
 *   `MAX_WORDS`: The maximum number of words in the generated response (e.g., `50`).
 *   `TEMPERATURE`: A float value that controls the creativity of the generated text. A value greater than or equal to `0.5` will use a smaller prefix for the Markov chain, resulting in more creative text. A value less than `0.5` will use a larger prefix, resulting in more deterministic text (e.g., `0.7`).
+
+### Configuration with Docker
+
+To configure the application when running with Docker, you can pass the environment variables using the `-e` flag:
+
+```bash
+docker run -p 8080:8080 \
+  -e INPUT_FILENAME="commedia.txt,brunori.txt" \
+  -e MAX_WORDS=100 \
+  -e TEMPERATURE=0.8 \
+  markov-chain-chatbot
+```
 
 # License
 
