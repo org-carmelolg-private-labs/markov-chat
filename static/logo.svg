@@ -1,34 +1,39 @@
-<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="400" height="400" fill="#0d111700"/>
+<svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Markov Chain Example logo">
+  <style>
+    :root{ --bg: transparent; --node1:#0b5cff; --node2:#1f6feb; --node3:#388bfd; --fg:#0b1220; --muted:rgba(0,0,0,0.7); }
+    @media (prefers-color-scheme: dark) {
+      :root{ --node1:#58a6ff; --node2:#1f6feb; --node3:#388bfd; --fg:#ffffff; --muted:rgba(255,255,255,0.9); }
+    }
+    .node{ stroke:var(--fg); stroke-width:4; }
+    .label{ font-family:Arial, sans-serif; font-size:14px; font-weight:700; text-anchor:middle; fill:var(--fg); }
+    .small{ font-size:12px; fill:var(--muted); text-anchor:middle; font-family:Arial, sans-serif; }
+    .title{ font-family:Arial, sans-serif; font-size:24px; font-weight:700; text-anchor:middle; fill:var(--node1); }
+  </style>
 
-  <!-- Nodes -->
-  <circle cx="100" cy="100" r="40" fill="#58a6ff" stroke="#ffffff" stroke-width="4"/>
-  <text x="100" y="105" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">S1</text>
+  <rect width="400" height="400" fill="var(--bg)"/>
 
-  <circle cx="200" cy="200" r="40" fill="#1f6feb" stroke="#ffffff" stroke-width="4"/>
-  <text x="200" y="205" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">S2</text>
+  <circle class="node" cx="100" cy="100" r="40" fill="var(--node1)"/>
+  <text x="100" y="105" class="label">S1</text>
 
-  <circle cx="300" cy="100" r="40" fill="#388bfd" stroke="#ffffff" stroke-width="4"/>
-  <text x="300" y="105" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">S3</text>
+  <circle class="node s2" cx="200" cy="200" r="40" fill="var(--node2)"/>
+  <text x="200" y="205" class="label">S2</text>
 
-  <!-- Arrows -->
+  <circle class="node s3" cx="300" cy="100" r="40" fill="var(--node3)"/>
+  <text x="300" y="105" class="label">S3</text>
+
   <defs>
     <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#ffffff"/>
+      <polygon points="0 0, 10 3.5, 0 7" style="fill:var(--fg)"/>
     </marker>
   </defs>
 
-  <!-- S1 to S2 -->
-  <path d="M140 100 Q170 140 200 160" fill="none" stroke="#ffffff" stroke-width="3" marker-end="url(#arrowhead)"/>
-  <text x="170" y="130" fill="white" font-family="Arial, sans-serif" font-size="12">0.7</text>
+  <path d="M140 100 Q170 140 200 160" fill="none" stroke="var(--fg)" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="170" y="130" class="small">0.7</text>
 
-  <!-- S1 to S3 -->
-  <path d="M140 100 L260 100" fill="none" stroke="#ffffff" stroke-width="3" marker-end="url(#arrowhead)"/>
-  <text x="200" y="95" fill="white" font-family="Arial, sans-serif" font-size="12">0.3</text>
+  <path d="M140 100 L260 100" fill="none" stroke="var(--fg)" stroke-width="3" marker-end="url(#arrowhead)"/>
+  <text x="200" y="95" class="small">0.3</text>
 
-  <!-- Title -->
-  <text x="200" y="340" text-anchor="middle" fill="#58a6ff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Markov</text>
-  <text x="200" y="365" text-anchor="middle" fill="#58a6ff" font-family="Arial, sans-serif" font-size="24" font-weight="bold">Chain</text>
-  <text x="200" y="385" text-anchor="middle" fill="#ffffff" font-family="Arial, sans-serif" font-size="14">Example</text>
+  <text x="200" y="340" class="title">Markov</text>
+  <text x="200" y="365" class="title">Chain</text>
+  <text x="200" y="385" class="small" fill="var(--fg)">Example</text>
 </svg>
