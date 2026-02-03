@@ -1,8 +1,8 @@
 <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Markov Chain Example logo">
   <style>
-    :root{ --bg: transparent; --node1:#58a6ff; --node2:#1f6feb; --node3:#388bfd; --fg:#6b7280; --muted:rgba(0,0,0,0.7); }
+    :root{ --bg: transparent; --node1:#9fb8d9; --node2:#92a9c1; --node3:#7c93a9; --fg:#4b5563; --muted:rgba(75,85,99,0.7); }
     @media (prefers-color-scheme: dark) {
-      :root{ --node1:#58a6ff; --node2:#1f6feb; --node3:#388bfd; --fg:#ffffff; --muted:rgba(255,255,255,0.9); }
+      :root{ --node1:#8fb4db; --node2:#7da6cb; --node3:#6f93b5; --fg:#e5e7eb; --muted:rgba(229,231,235,0.85); }
     }
     .node{ stroke:var(--fg); stroke-width:4; }
     .label{ font-family:Arial, sans-serif; font-size:14px; font-weight:700; text-anchor:middle; fill:var(--fg); }
