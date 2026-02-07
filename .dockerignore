@@ -46,8 +46,6 @@ htmlcov/
 !README.md
 
 # Docker
-Dockerfile
-.dockerignore
 docker-compose.yml
 
 # Misc

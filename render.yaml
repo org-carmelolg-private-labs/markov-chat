@@ -6,8 +6,8 @@ services:
     healthCheckPath: /
     envVars:
       - key: MAX_WORDS
-        value: 150
+        value: "150"
       - key: INPUT_FILENAME
         value: aitw.txt,commedia.txt,brunori.txt
       - key: TEMPERATURE
-        value: 0
+        value: "0"
