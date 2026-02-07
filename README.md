@@ -143,6 +143,40 @@ docker run -p 8080:8080 \
   markov-chain-chatbot
 ```
 
+## Deployment
+
+This application can be easily deployed online using [Render](https://render.com), a cloud platform with GitHub integration.
+
+### Deploy to Render
+
+1. **Fork or clone this repository** to your GitHub account.
+
+2. **Sign up for Render** at [render.com](https://render.com) (free tier available).
+
+3. **Connect your GitHub account** to Render.
+
+4. **Create a new Web Service**:
+   - Click "New +" and select "Web Service"
+   - Connect your repository
+   - Render will automatically detect the `render.yaml` configuration file
+   - Click "Apply" to create the service
+
+5. **Configure environment variables** (optional):
+   - The default configuration uses the values from `render.yaml`
+   - You can customize `MAX_WORDS`, `INPUT_FILENAME`, and `TEMPERATURE` in the Render dashboard
+
+6. **Deploy**:
+   - Render will automatically build and deploy your application using Docker
+   - Your chat application will be available at a URL like `https://markov-chain-chatbot.onrender.com`
+
+### Alternative: One-Click Deploy
+
+You can also deploy directly using the button below:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+**Note**: The free tier on Render may spin down the service after periods of inactivity, which can result in a cold start delay on the first request.
+
 # License
 
 ![CC BY-NC-ND 4.0](https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png)
