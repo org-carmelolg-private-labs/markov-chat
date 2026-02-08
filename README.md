@@ -60,7 +60,7 @@ The application is composed of a frontend built with **NiceGUI** and a backend t
 
 ### Prerequisites
 
--   Python 3.x
+-   Python 3.10 or higher (tested with Python 3.13)
 -   pip
 
 ### Installation
