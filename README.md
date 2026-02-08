@@ -10,6 +10,11 @@ A simple Python-based chat application that uses Markov chains to generate text.
 
 The application is composed of a frontend built with **NiceGUI** and a backend that handles the text generation.
 
+**GitHub Copilot Agents**: This repository includes specialized Copilot agents in `.github/agents/` to help with:
+- Managing text corpus files from Project Gutenberg
+- Validating configuration and testing
+- See [Copilot Agents Setup Guide](.github/COPILOT_AGENTS_SETUP.md) for details
+
 1.  **Frontend (`runner.py`)**:
     *   A web-based chat interface is created using NiceGUI.
     *   The user can type a message and send it to the backend.
@@ -37,22 +42,31 @@ The application is composed of a frontend built with **NiceGUI** and a backend t
     /
     ├── .env.example
     ├── .gitignore
+    ├── .github/
+    │   ├── agents/            # Copilot agent configurations
+    │   ├── workflows/         # CI/CD workflows
+    │   └── COPILOT_AGENTS_SETUP.md
     ├── LICENSE.md
     ├── README.md
     ├── requirements.txt
     ├── runner.py
+    ├── download_gutenberg.py  # Script to download Project Gutenberg texts
     ├── lib/
     │   ├── __init__.py
     │   ├── EnvironmentVariables.py
     │   ├── MarkovGenerator.py
     │   └── StringUtils.py
     └── static/
+        ├── README.md          # Text corpus documentation
         ├── aitw.txt
-        ├── ...
+        └── ...
     ```
     *   `runner.py`: The main entry point of the application.
     *   `lib/`: Contains the core logic of the application.
     *   `static/`: Contains the text files used as the corpus for the Markov chain model.
+    *   `.github/agents/`: Copilot agent configurations for automated assistance.
+    *   `.github/workflows/`: Automated validation and testing workflows.
+    *   `download_gutenberg.py`: Utility to download texts from Project Gutenberg.
     *   `requirements.txt`: Lists the Python dependencies.
     *   `.env.example`: An example file for configuring environment variables.
 
@@ -130,6 +144,20 @@ You can create a `.env` file in the root of the project to configure the followi
 *   `INPUT_FILENAME`: A comma-separated list of filenames from the `static` directory to be used as the text corpus (e.g., `commedia.txt,brunori.txt`).
 *   `MAX_WORDS`: The maximum number of words in the generated response (e.g., `50`).
 *   `TEMPERATURE`: A float value that controls the creativity of the generated text. A value greater than or equal to `0.5` will use a smaller prefix for the Markov chain, resulting in more creative text. A value less than `0.5` will use a larger prefix, resulting in more deterministic text (e.g., `0.7`).
+
+### Adding Text Files from Project Gutenberg
+
+You can expand the text corpus by downloading public domain books from Project Gutenberg:
+
+```bash
+# Download a book (e.g., Pride and Prejudice - ID: 1342)
+python download_gutenberg.py 1342 static/pride-prejudice.txt
+
+# Update .env to include the new file
+# INPUT_FILENAME=aitw.txt,commedia.txt,brunori.txt,pride-prejudice.txt
+```
+
+See `static/README.md` for a list of popular books and their Project Gutenberg IDs.
 
 ### Configuration with Docker
 
