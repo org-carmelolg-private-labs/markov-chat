@@ -95,8 +95,8 @@ def root():
         question = text.value
         text.value = ''
         with message_container:
-            ui.chat_message(text=f'$ {question}', name='user@terminal', sent=True).classes('terminal-user')
-            response_message = ui.chat_message(name='anti-agent@system', sent=False).classes('terminal-response')
+            ui.chat_message(text=f'$ {question}', name='user@terminal', sent=True)
+            response_message = ui.chat_message(name='anti-agent@system', sent=False)
             spinner = ui.spinner(type='dots', size='lg', color='green')
 
         await ui.run_javascript('window.scrollTo(0, document.body.scrollHeight)')
@@ -110,11 +110,11 @@ def root():
 
     message_container = ui.column().classes('w-full max-w-2xl mx-auto flex-grow items-stretch')
 
-    with (ui.footer().classes('terminal-footer'), ui.column().classes('w-full max-w-3xl mx-auto my-6')):
+    with (ui.footer(), ui.column().classes('w-full max-w-3xl mx-auto my-6')):
         with ui.row().classes('w-full no-wrap items-center'):
             placeholder = '> Enter command...'
-            text = ui.input(placeholder=placeholder).props('dark outlined square dense input-class=mx-3').classes('w-full self-center terminal-input').on('keydown.enter', send)
-            button = ui.button(text="SEND", on_click=send).props('dark outlined square dense').classes('self-center terminal-button')
+            text = ui.input(placeholder=placeholder).props('dark outlined square dense input-class=mx-3').classes('w-full self-center').on('keydown.enter', send)
+            button = ui.button(text="SEND", on_click=send).props('dark outlined square dense').classes('self-center')
 
         ui.markdown('Made with 🔥 by [carmelolg](https://carmelolg.github.io)') \
             .classes('text-xs self-center mr-12 m-[-1em]') \
