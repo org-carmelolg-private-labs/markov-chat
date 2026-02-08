@@ -8,7 +8,7 @@ This directory contains text files used as the corpus for the Markov chain text 
 
 1. **aitw.txt** - Alice's Adventures in Wonderland
    - Author: Lewis Carroll
-   - Source: Project Gutenberg (estimated)
+   - Source: Likely Project Gutenberg
    - Language: English
    - Genre: Fantasy, Children's Literature
    - Size: ~3,600 lines
@@ -68,7 +68,12 @@ python download_gutenberg.py <book_id> static/<filename>.txt
    INPUT_FILENAME=aitw.txt,commedia.txt,brunori.txt,your-new-file.txt
    ```
 
-3. Test the application:
+3. Verify the file is loaded:
+   ```bash
+   python -c "from lib.EnvironmentVariables import EnvironmentVariables; print(EnvironmentVariables().get_input_filename())"
+   ```
+
+4. Test the application:
    ```bash
    python runner.py
    ```

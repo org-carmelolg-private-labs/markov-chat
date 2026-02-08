@@ -69,7 +69,7 @@ def download_gutenberg_text(book_id, output_filename):
         
         print(f"✓ Successfully downloaded to {output_filename}")
         print(f"  File size: {len(content)} characters")
-        print(f"  Lines: {content.count(chr(10)) + 1}")
+        print(f"  Lines: {content.count('\n') + 1}")
         
         return True
         
