@@ -1,0 +1,142 @@
+name: Validation and Testing
+
+on:
+  push:
+    branches: [ main, develop, 'copilot/**' ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Validate Configuration and Test Application
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Validate environment configuration
+      run: |
+        echo "Checking .env.example exists..."
+        test -f .env.example || (echo "ERROR: .env.example not found" && exit 1)
+        
+        echo "Checking required environment variables are documented..."
+        grep -q "INPUT_FILENAME" .env.example || (echo "ERROR: INPUT_FILENAME not in .env.example" && exit 1)
+        grep -q "MAX_WORDS" .env.example || (echo "ERROR: MAX_WORDS not in .env.example" && exit 1)
+        grep -q "TEMPERATURE" .env.example || (echo "ERROR: TEMPERATURE not in .env.example" && exit 1)
+        
+        echo "Environment configuration is valid!"
+        
+    - name: Validate text files
+      run: |
+        # Copy .env.example to .env for testing
+        cp .env.example .env
+        
+        echo "Checking text files referenced in .env.example..."
+        FILES=$(grep "^INPUT_FILENAME=" .env.example | cut -d= -f2 | tr ',' ' ')
+        
+        for file in $FILES; do
+          filepath="static/$file"
+          if [ -f "$filepath" ]; then
+            echo "✓ Found: $filepath ($(wc -l < "$filepath") lines)"
+          else
+            echo "✗ Missing: $filepath"
+            exit 1
+          fi
+        done
+        
+        echo "All text files are present!"
+        
+    - name: Test Markov Generator
+      run: |
+        # Create .env from example
+        cp .env.example .env
+        
+        echo "Testing Markov Generator..."
+        python -c "
+from lib.MarkovGenerator import MarkovGenerator
+result = MarkovGenerator.run()
+print('Generated text:', result[:100] + '...')
+assert len(result) > 0, 'Generated text is empty'
+print('✓ Markov Generator test passed!')
+        "
+        
+    - name: Validate Docker configuration
+      run: |
+        echo "Checking Dockerfile exists..."
+        test -f Dockerfile || (echo "ERROR: Dockerfile not found" && exit 1)
+        
+        echo "Checking render.yaml exists..."
+        test -f render.yaml || (echo "ERROR: render.yaml not found" && exit 1)
+        
+        echo "Docker configuration is valid!"
+        
+    - name: Test Docker build
+      run: |
+        echo "Building Docker image..."
+        docker build -t markov-chain-test .
+        
+        echo "Docker build successful!"
+        
+    - name: Validate Copilot agents
+      run: |
+        echo "Checking .github/agents directory..."
+        test -d .github/agents || (echo "ERROR: .github/agents directory not found" && exit 1)
+        
+        echo "Checking agent configuration files..."
+        test -f .github/agents/README.md || echo "WARNING: .github/agents/README.md not found"
+        
+        AGENT_COUNT=$(find .github/agents -name "*.md" -type f | wc -l)
+        echo "Found $AGENT_COUNT agent configuration files"
+        
+        if [ "$AGENT_COUNT" -gt 0 ]; then
+          echo "✓ Copilot agents are configured!"
+        else
+          echo "WARNING: No agent configuration files found"
+        fi
+        
+  docker-test:
+    name: Test Docker Container
+    runs-on: ubuntu-latest
+    needs: validate
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Build Docker image
+      run: docker build -t markov-chain-chatbot .
+      
+    - name: Run Docker container
+      run: |
+        # Start container in background
+        docker run -d --name markov-test -p 8080:8080 \
+          -e INPUT_FILENAME="aitw.txt,commedia.txt,brunori.txt" \
+          -e MAX_WORDS=150 \
+          -e TEMPERATURE=0 \
+          markov-chain-chatbot
+        
+        # Wait for container to be ready
+        sleep 10
+        
+        # Check if container is running
+        docker ps | grep markov-test || (echo "Container failed to start" && exit 1)
+        
+        echo "✓ Docker container is running!"
+        
+    - name: Cleanup
+      if: always()
+      run: |
+        docker stop markov-test || true
+        docker rm markov-test || true

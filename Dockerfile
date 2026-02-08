@@ -19,5 +19,11 @@ RUN chmod +x run-docker.sh
 # Expose the port the app runs on
 EXPOSE 8080
 
+# Environment variables (can be overridden at runtime)
+# INPUT_FILENAME: Comma-separated list of text files in static/ directory
+# MAX_WORDS: Maximum number of words in generated responses
+# TEMPERATURE: Controls creativity (0-1, where >=0.5 is more creative)
+# Example: docker run -e INPUT_FILENAME="aitw.txt,commedia.txt" -e MAX_WORDS=150 -e TEMPERATURE=0
+
 # Define the entrypoint for the container
 ENTRYPOINT ["./run-docker.sh"]
