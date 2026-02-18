@@ -4,7 +4,7 @@ from time import sleep
 
 from html_sanitizer import Sanitizer
 from nicegui import ui
-from lib.MarkovGenerator import MarkovGenerator
+from lib.MarkovGenerator import run as markov_run
 
 def root():
     # Add custom terminal-style CSS
@@ -100,7 +100,7 @@ def root():
             spinner = ui.spinner(type='dots', size='lg', color='green')
 
         await ui.run_javascript('window.scrollTo(0, document.body.scrollHeight)')
-        response = MarkovGenerator.run()
+        response = markov_run()
         sleep(random.randint(1, 3))
         await ui.run_javascript('window.scrollTo(0, 0)')
         with response_message.clear():
