@@ -3,7 +3,7 @@ from pathlib import Path
 
 from collections import defaultdict, deque
 from lib.EnvironmentVariables import EnvironmentVariables
-from lib.StringUtils import StringUtils
+from lib.StringUtils import normalize, substring
 
 env = EnvironmentVariables()
 
@@ -31,7 +31,7 @@ class MarkovGenerator:
             with file_path.open('r', encoding='utf-8') as file:
                 for line in file:
                     for word in line.split():
-                        normalized = StringUtils.normalize(word)
+                        normalized = normalize(word)
                         if normalized is not None:
                             yield normalized
 
@@ -80,7 +80,7 @@ class MarkovGenerator:
             output.append(word)
             key = tuple(list(key[1:]) + [word]) if len(key) > 1 else (word,)
 
-        return StringUtils.substring(textwrap.fill(' '.join(output)), ';.!')
+        return substring(textwrap.fill(' '.join(output)), ';.!')
 
     @staticmethod
     def _deterministic():
