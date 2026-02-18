@@ -105,6 +105,33 @@ This will start a web server, and you can access the chat interface by opening y
 
 4.  The bot will generate a response based on the text corpus.
 
+## Testing
+
+This project includes comprehensive unit tests with **100% code coverage**.
+
+### Running Tests
+
+Install test dependencies:
+
+```bash
+pip install -r requirements-test.txt
+```
+
+Run all tests:
+
+```bash
+pytest tests/
+```
+
+Run tests with coverage report:
+
+```bash
+pytest tests/ --cov=lib --cov-report=term-missing
+```
+
+For more details on testing, see the [tests/README.md](tests/README.md) file.
+
+
 ## Usage with Docker
 
 You can also run the application using Docker.
