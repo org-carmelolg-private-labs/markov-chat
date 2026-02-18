@@ -13,14 +13,39 @@ class EnvironmentVariables:
             load_dotenv()  # Load .env once at initialization
         return cls._instance
 
-    @staticmethod
-    def get_max_words(default: int = None) -> int:
+    def get_max_words(self, default: int = None) -> int:
+        """
+        Get the MAX_WORDS environment variable.
+        
+        Args:
+            default: Default value if the environment variable is not set
+            
+        Returns:
+            The MAX_WORDS value or default
+        """
         return os.getenv("MAX_WORDS", default)
 
-    @staticmethod
-    def get_input_filename(default: str = None) -> list:
+    def get_input_filename(self, default: str = None) -> list:
+        """
+        Get the INPUT_FILENAME environment variable and split it into a list.
+        
+        Args:
+            default: Default value if the environment variable is not set
+            
+        Returns:
+            A list of filenames
+        """
         return os.getenv("INPUT_FILENAME", default).split(',')
 
-    @staticmethod
-    def get_temperature(default: float = None) -> float:
+    def get_temperature(self, default: float = None) -> float:
+        """
+        Get the TEMPERATURE environment variable as a float.
+        
+        Args:
+            default: Default value if the environment variable is not set
+            
+        Returns:
+            The TEMPERATURE value as a float
+        """
         return float(os.getenv("TEMPERATURE", default))
+
