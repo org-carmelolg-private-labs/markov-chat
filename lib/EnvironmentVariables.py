@@ -2,6 +2,7 @@
 Module to load environment variables from a .env file.
 """
 import os
+from typing import List
 from dotenv import load_dotenv
 
 class EnvironmentVariables:
@@ -28,7 +29,7 @@ class EnvironmentVariables:
             return default
         return int(value)
 
-    def get_input_filename(self, default: str = None) -> list:
+    def get_input_filename(self, default: str = None) -> List[str]:
         """
         Get the INPUT_FILENAME environment variable and split it into a list.
         
