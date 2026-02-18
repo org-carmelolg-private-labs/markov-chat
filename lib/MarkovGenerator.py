@@ -19,7 +19,7 @@ def run():
     Returns:
         Generated text string
     """
-    if env.get_temperature(1) >= 0.5:
+    if env.get_temperature() >= 0.5:
         return _creative()
     else:
         return _deterministic()
@@ -130,7 +130,7 @@ def _generate(possibles, start_key, max_words):
     key = tuple(start_key)
     output = list(key)
 
-    for _ in range(int(max_words)):
+    for _ in range(max_words):
         choices = possibles.get(key, [''])
         word = random.choice(choices)
         output.append(word)
@@ -148,7 +148,7 @@ def _deterministic():
     """
     possibles = _build_possibles(prefix_len=3)
     start_key = _pick_start_key(possibles)
-    return _generate(possibles, start_key, env.get_max_words(50))
+    return _generate(possibles, start_key, env.get_max_words())
 
 
 def _creative():
@@ -160,4 +160,4 @@ def _creative():
     """
     possibles = _build_possibles(prefix_len=2)
     start_key = _pick_start_key(possibles)
-    return _generate(possibles, start_key, env.get_max_words(50))
+    return _generate(possibles, start_key, env.get_max_words())
