@@ -1,6 +1,7 @@
 # Markov Chain Chatbot
 
 ![logo](static/logo.svg)
+![coverage](static/coverage.svg)
 
 A simple Python-based chat application that uses Markov chains to generate text. This project provides a web-based chat interface where users can interact with a bot that generates responses based on a pre-trained Markov chain model.
 
