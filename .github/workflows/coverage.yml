@@ -29,13 +29,13 @@ jobs:
         run: pytest tests/ --cov=lib --cov-report=xml
 
       - name: Generate coverage badge
-        run: genbadge coverage -i coverage.xml -o coverage.svg --local
+        run: genbadge coverage -i coverage.xml -o static/coverage.svg --local
 
       - name: Commit and push coverage badge
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add coverage.svg
-          # Only commit if coverage.svg actually changed
+          git add static/coverage.svg
+          # Only commit if static/coverage.svg actually changed
           git diff --staged --quiet || git commit -m "chore: update coverage badge [skip ci]"
           git push
