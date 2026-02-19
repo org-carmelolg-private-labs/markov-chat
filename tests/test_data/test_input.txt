@@ -1,0 +1,4 @@
+The quick brown fox jumps over the lazy dog.
+The dog was very lazy and slept all day.
+The fox was quick and brown.
+The brown fox jumps high.
